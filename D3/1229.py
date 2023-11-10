@@ -12,21 +12,28 @@ for t in range(10):
         if len(tmp) == 0:
             break
 
-        if tmp[0] == "I":
-            tmp.popleft()
+        if tmp[0] == "I" or tmp[0] == "D":
             i += 1
+            command[i].append(tmp[0])
+            tmp.popleft()
         else:
             command[i].append(tmp[0])
             tmp.popleft()
 
     # 명령어 개수만큼 실행
+
     for i in range(len(command)):
-        x = int(command[i][0])
-        y = int(command[i][1])
-        s = command[i][2:]
-        for j in range(y):
-            original.insert(x, int(s[j]))
-            x += 1
+        chk = command[i][0]
+        x = int(command[i][1])
+        y = int(command[i][2])
+        s = command[i][3:]
+        if chk == "I":
+            for j in range(y):
+                original.insert(x, int(s[j]))
+                x += 1
+        else:
+            for _ in range(y):
+                del original[x]
 
     print(f"#{t+1} ", end="")
     print(*original[:10])
