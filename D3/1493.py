@@ -1,27 +1,33 @@
-# key: 값, value: 좌표
-v_dict = dict()
-# key: 좌표, value: 값
-c_dict = dict()
+# 키: 좌표, 값: 해당 좌표 값
+coord = dict()
+# 키: 좌표 내 값, 값: 값에 해당하는 좌표
+val = dict()
 
-i, j = 1, 1
-for k in range(1, 50000):
-    v_dict[k] = (i, j)
-    c_dict[(i, j)] = k
+x, y = 1, 1
+for n in range(1, 50000):
+    coord[(x, y)] = n
+    val[n] = (x, y)
 
-    i -= 1
-    j += 1
-    if i < 1:
-        i = j
-        j = 1
+    x, y = x + 1, y - 1
+
+    if y < 1:
+        y, x = x, 1
 
 for t in range(int(input())):
     p, q = map(int, input().split())
 
-    # &(p)
-    and_p = v_dict[p]
-    # &(q)
-    and_q = v_dict[q]
-    # #(&(p) + &(q)) = #((x, y) + (z, w)) = #((x+z), (y+w))
-    s_coord =(and_p[0] + and_q[0], and_p[1] + and_q[1])
-    result = c_dict[s_coord]
-    print(f"#{t+1} {result}")
+    # &(p) = #(x, y)
+    x, y = val[p][0], val[p][1]
+    # &(q) = #(z, w)
+    z, w = val[q][0], val[q][1]
+
+    # #(&(p)+&(q)) = #((x, y)+(z, w)) = #((x + z), (y + w))
+    xz = x + z
+    yw = y + w
+
+    # (xz, yw)의 값 저장하기
+    result = coord[(xz, yw)]
+
+    print(f"#{t + 1} {result}")
+
+

@@ -21,6 +21,7 @@ def np():
                 else:
                     return "YES"
     # 멈추지 않고 계속 순회했다면 5개 연속된 돌을 찾지 못한 것이므로 NO 반환
+
     return "NO"
 
 

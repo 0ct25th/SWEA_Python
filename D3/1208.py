@@ -1,15 +1,11 @@
 for t in range(10):
-    cnt = int(input())
-    box = list(map(int, input().split()))
-    # 초기 최대, 최소값의 인덱스 값 정의
-    max_height = box.index(max(box))
-    min_height = box.index(min(box))
+    dump = int(input())
+    box = sorted(list(map(int, input().split())))
 
-    for _ in range(cnt):
-        box[max_height] -= 1
-        box[min_height] += 1
-        # 최대, 최소값의 인덱스 값 재정의
-        max_height = box.index(max(box))
-        min_height = box.index(min(box))
+    while dump != 0:
+        box[0] += 1
+        box[-1] -= 1
+        dump -= 1
+        box.sort()
 
-    print(f"#{t+1} {box[max_height] - box[min_height]}")
+    print(f"#{t + 1} {max(box) - min(box)}")

@@ -30,34 +30,33 @@ for t in range(int(input())):
     N, M = map(int, input().split())
 
     # 초기 돌 배치
+    # 0: 아무 돌 없음
+    # 1: 흑돌
+    # 2: 백돌
     board = [[0] * N for _ in range(N)]
     # 초기 흑돌 배치
-    board[N//2 - 1][N//2] = board[N//2][N//2 - 1] = 'B'
+    board[N//2 - 1][N//2] = board[N//2][N//2 - 1] = 1
     # 초기 백돌 배치
-    board[N//2][N//2] = board[N//2 - 1][N//2 - 1] = 'W'
+    board[N//2][N//2] = board[N//2 - 1][N//2 - 1] = 2
 
     # M만큼 돌 입력
     for _ in range(M):
         # 입력 조심
         c, r, clr = map(int, input().split())
 
-        # 흑돌 놓기
-        if clr == 1:
-            board[r-1][c-1] = 'B'
-        # 백돌 놓기
-        else:
-            board[r-1][c-1] = 'W'
+        # 돌 놓기
+        board[r-1][c-1] = clr
 
         # 돌 변경
         flip(r-1, c-1)
 
     # 각 돌 개수 세기
     black, white = 0, 0
-    for i in range(N):
-        for j in range(N):
-            if board[i][j] == 'B':
+    for i in board:
+        for j in i:
+            if j == 1:
                 black += 1
-            elif board[i][j] == 'W':
+            elif j == 2:
                 white += 1
 
     print(f"#{t + 1} {black} {white}")
